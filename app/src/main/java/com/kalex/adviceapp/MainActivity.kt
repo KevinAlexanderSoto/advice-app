@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
                     ) {
 
                         Text(
-                            text = "Advice APP",
+                            text = resources.getString(R.string.Advide_title),
                             fontSize = 10.em,
                             modifier = Modifier.padding(10.dp),
                             fontWeight = Bold,
@@ -106,12 +106,20 @@ fun GetAdviceButton(
 
         ) {
         Text(
-            text = "Get Advice ",
+            text = context.resources.getString(R.string.Get_advice_button_title),
             fontSize = 20.sp,
 
             )
         if (!adviceViewModel.advice.value.isLoading) {
             function(adviceViewModel.advice.value.Advice)
+        }
+        //INTERNET ERROR
+        if (adviceViewModel.advice.value.isError) {
+            Toast.makeText(
+                context,
+                adviceViewModel.advice.value.Error,
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 }

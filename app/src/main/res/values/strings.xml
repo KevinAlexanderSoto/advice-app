@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AdviceApp</string>
+    <string name="Advide_title">Advice APP</string>
+    <string name="Get_advice_button_title">AdviceApp</string>
 </resources>

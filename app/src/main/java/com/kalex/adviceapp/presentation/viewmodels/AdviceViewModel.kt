@@ -31,7 +31,7 @@ class AdviceViewModel @Inject constructor(
                     _advice.value = AdviceState(isLoading = true)
                 }
                 is Resource.Error -> {
-
+                    _advice.value = AdviceState(isError =  true, Error = result.message ?: "ERROR")
                 }
 
             }
