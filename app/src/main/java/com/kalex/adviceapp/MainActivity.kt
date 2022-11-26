@@ -27,15 +27,10 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.kalex.adviceapp.di.theme.AdviceAppTheme
+import com.kalex.adviceapp.presentation.ui.theme.AdviceAppTheme
 import com.kalex.adviceapp.presentation.viewmodels.AdviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

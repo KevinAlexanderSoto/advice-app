@@ -1,4 +1,4 @@
-package com.kalex.adviceapp.di.theme
+package com.kalex.adviceapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
