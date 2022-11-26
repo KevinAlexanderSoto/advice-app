@@ -1,4 +1,4 @@
-package com.kalex.adviceapp.presentation.ui.theme
+package com.kalex.adviceapp.di.theme
 
 import android.app.Activity
 import android.os.Build
