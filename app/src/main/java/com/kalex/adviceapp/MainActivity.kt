@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -26,7 +27,8 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.kalex.adviceapp.ui.theme.AdviceAppTheme
+import com.kalex.adviceapp.presentation.ui.theme.AdviceAppTheme
+import com.kalex.adviceapp.presentation.viewmodels.AdviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,16 +43,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val client = Retrofit.Builder()
-            .baseUrl("https://api.adviceslip.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(UserRetroApi::class.java)
-
         setContent {
             AdviceAppTheme {
                 var result by mutableStateOf("")
-
+                val adviceViewModel: AdviceViewModel by viewModels()
                 Surface(
                     modifier = Modifier
                         .fillMaxSize()
@@ -74,7 +70,7 @@ class MainActivity : ComponentActivity() {
                         )
 
                         Advice(result)
-                        GetAdviceButton(client) {
+                        GetAdviceButton( adviceViewModel) {
                             result = it
                         }
                     }
@@ -91,26 +87,15 @@ fun Advice(name: String) {
 }
 
 @Composable
-fun GetAdviceButton(client: UserRetroApi, function: (String) -> Unit) {
+fun GetAdviceButton(
+    adviceViewModel: AdviceViewModel ,
+    function: (String) -> Unit
+) {
     val context = LocalContext.current
     Button(
         onClick = {
-            client.getUser().enqueue(object : Callback<splip> {
-                override fun onResponse(call: Call<splip>, response: Response<splip>) {
-                    val adviceResponse = response.body()?.slip
-                    function(adviceResponse?.advice.toString())
+            adviceViewModel.getAdvice()
 
-                }
-
-                override fun onFailure(call: Call<splip>, t: Throwable) {
-                    Toast.makeText(
-                        context,
-                        t.message ?: "ERROR",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-
-            })
         },
         modifier = Modifier
             .padding(top = 30.dp)
@@ -125,22 +110,9 @@ fun GetAdviceButton(client: UserRetroApi, function: (String) -> Unit) {
             fontSize = 20.sp,
 
             )
+        if (!adviceViewModel.advice.value.isLoading) {
+            function(adviceViewModel.advice.value.Advice)
+        }
     }
 }
 
-interface UserRetroApi {
-
-    @GET("advice")
-    fun getUser(
-    ): Call<splip>
-
-}
-
-data class splip(
-    val slip: Advicedto = Advicedto("1", "ADVICE 1")
-)
-
-data class Advicedto(
-    val id: String = "",
-    val advice: String = "",
-)

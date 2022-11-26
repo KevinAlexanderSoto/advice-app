@@ -1,4 +1,4 @@
-package com.kalex.adviceapp.ui.theme
+package com.kalex.adviceapp.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
