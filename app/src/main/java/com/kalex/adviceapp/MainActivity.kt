@@ -27,6 +27,8 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.kalex.adviceapp.presentation.ui.Advice
+import com.kalex.adviceapp.presentation.ui.GetAdviceButton
 import com.kalex.adviceapp.presentation.ui.theme.AdviceAppTheme
 import com.kalex.adviceapp.presentation.viewmodels.AdviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -72,49 +74,6 @@ class MainActivity : ComponentActivity() {
 
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun Advice(name: String) {
-    Text(modifier = Modifier.padding(15.dp), text = name)
-}
-
-@Composable
-fun GetAdviceButton(
-    adviceViewModel: AdviceViewModel ,
-    function: (String) -> Unit
-) {
-    val context = LocalContext.current
-    Button(
-        onClick = {
-            adviceViewModel.getAdvice()
-
-        },
-        modifier = Modifier
-            .padding(top = 30.dp)
-            .fillMaxWidth(0.8f),
-        border = BorderStroke(1.dp, Color.Black),
-        shape = RoundedCornerShape(23.dp),
-        contentPadding = PaddingValues(12.dp),
-
-        ) {
-        Text(
-            text = context.resources.getString(R.string.Get_advice_button_title),
-            fontSize = 20.sp,
-
-            )
-        if (!adviceViewModel.advice.value.isLoading) {
-            function(adviceViewModel.advice.value.Advice)
-        }
-        //INTERNET ERROR
-        if (adviceViewModel.advice.value.isError) {
-            Toast.makeText(
-                context,
-                adviceViewModel.advice.value.Error,
-                Toast.LENGTH_LONG
-            ).show()
         }
     }
 }
