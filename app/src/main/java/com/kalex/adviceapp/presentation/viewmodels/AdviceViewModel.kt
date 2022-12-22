@@ -4,7 +4,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kalex.adviceapp.Advice
 import com.kalex.adviceapp.common.AdviceState
 import com.kalex.adviceapp.common.Resource
 import com.kalex.adviceapp.model.usecase.AdviceUseCase
