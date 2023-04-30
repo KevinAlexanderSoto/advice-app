@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.sp
 import com.kalex.adviceapp.R
 import com.kalex.adviceapp.presentation.viewmodels.AdviceViewModel
 
-
 @Composable
 fun Advice(name: String) {
     Text(modifier = Modifier.padding(15.dp), text = name)
@@ -26,13 +25,12 @@ fun Advice(name: String) {
 @Composable
 fun GetAdviceButton(
     adviceViewModel: AdviceViewModel,
-    function: (String) -> Unit
+    function: (String) -> Unit,
 ) {
     val context = LocalContext.current
     Button(
         onClick = {
             adviceViewModel.getAdvice()
-
         },
         modifier = Modifier
             .padding(top = 30.dp)
@@ -41,21 +39,21 @@ fun GetAdviceButton(
         shape = RoundedCornerShape(23.dp),
         contentPadding = PaddingValues(12.dp),
 
-        ) {
+    ) {
         Text(
             text = context.resources.getString(R.string.Get_advice_button_title),
             fontSize = 20.sp,
 
-            )
+        )
         if (!adviceViewModel.advice.value.isLoading) {
             function(adviceViewModel.advice.value.Advice)
         }
-        //INTERNET ERROR
+        // INTERNET ERROR
         if (adviceViewModel.advice.value.isError) {
             Toast.makeText(
                 context,
                 adviceViewModel.advice.value.Error,
-                Toast.LENGTH_LONG
+                Toast.LENGTH_LONG,
             ).show()
         }
     }

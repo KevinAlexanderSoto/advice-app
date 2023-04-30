@@ -14,25 +14,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AdviceViewModel @Inject constructor(
-    private val adviceUseCase : AdviceUseCase
-    ) : ViewModel() {
+    private val adviceUseCase: AdviceUseCase,
+) : ViewModel() {
 
     private val _advice = mutableStateOf(AdviceState())
-    var advice : State<AdviceState> = _advice
+    var advice: State<AdviceState> = _advice
 
-    fun getAdvice (){
+    fun getAdvice() {
         adviceUseCase().onEach { result ->
-            when(result){
+            when (result) {
                 is Resource.Success -> {
-                    _advice.value = AdviceState(Advice =  result.data?.slip?.advice ?: "no advice")
+                    _advice.value = AdviceState(Advice = result.data?.slip?.advice ?: "no advice")
                 }
+
                 is Resource.Loading -> {
                     _advice.value = AdviceState(isLoading = true)
                 }
-                is Resource.Error -> {
-                    _advice.value = AdviceState(isError =  true, Error = result.message ?: "ERROR")
-                }
 
+                is Resource.Error -> {
+                    _advice.value = AdviceState(isError = true, Error = result.message ?: "ERROR")
+                }
             }
         }.launchIn(viewModelScope)
     }
