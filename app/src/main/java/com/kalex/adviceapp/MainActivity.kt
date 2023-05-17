@@ -34,7 +34,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             AdviceAppTheme {
                 var result by mutableStateOf("")
-                val adviceViewModel: AdviceViewModel by viewModels()
                 Surface(
                     modifier = Modifier
                         .fillMaxSize()
@@ -56,7 +55,7 @@ class MainActivity : ComponentActivity() {
                         )
 
                         Advice(result)
-                        GetAdviceButton(adviceViewModel) {
+                        GetAdviceButton() {
                             result = it
                         }
                     }

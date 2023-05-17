@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kalex.adviceapp.R
 import com.kalex.adviceapp.presentation.viewmodels.AdviceViewModel
 
@@ -24,7 +25,7 @@ fun Advice(name: String) {
 
 @Composable
 fun GetAdviceButton(
-    adviceViewModel: AdviceViewModel,
+    adviceViewModel: AdviceViewModel = viewModel(),
     function: (String) -> Unit,
 ) {
     val context = LocalContext.current
