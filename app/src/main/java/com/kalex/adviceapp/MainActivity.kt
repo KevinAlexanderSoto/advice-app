@@ -35,7 +35,6 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("UnrememberedMutableState")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             AdviceAppTheme {
                 var showSheet by remember { mutableStateOf(false) }
