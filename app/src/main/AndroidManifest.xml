@@ -27,10 +27,42 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <intent-filter>
+                <action android:name="com.skgtecnologia.helios.authenticationmodule.HANDLE_AUTHORIZATION_RESPONSE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <activity android:name="net.openid.appauth.RedirectUriReceiverActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:path="/oauth2redirect"
+                    android:scheme="com.kalex.adviceapp" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:path="/logout"
+                    android:scheme="com.kalex.adviceapp" />
+            </intent-filter>
+        </activity>
+
+
     </application>
 
 </manifest>
